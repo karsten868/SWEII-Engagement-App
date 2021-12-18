@@ -3,7 +3,7 @@
 
 <template>
    
-    <button class="effect effect-5">{{text}}</button>
+    <button to="" class="effect effect-5">{{text}}</button>
 </template>
 
 <script>

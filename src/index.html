@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Videosdk.live RTC</title>
+  </head>
+  <body>
+
+      <!--join-->
+      <h2>Join Meeting</h2>
+      <input type="text" id="jc" name="Join Code" placeholder="Meeting Name">
+      <input type="text" id="API" name="API" placeholder="Enter API Key">
+      <input type="text" id="pName" name="pName" placeholder="Enter your Name">
+      <button id="sub1"> Join </button>
+      <br>
+      <!--
+      <script>
+         document.getElementById("sub1").addEventListener("click", function(event) {
+            window.location.href = document.getElementById("jc").value; 
+        });
+      </script>
+      -->
+      <!--host
+      <h2>Host Meeting</h2>
+      //<button id="sub2"> Host </button>-->
+    <script>
+      var script = document.createElement("script");
+      script.type = "text/javascript";
+      //
+      document.getElementById("sub1").addEventListener("click", function (event) {
+        // Get Variables from input:
+        var meetingName = document.getElementById("jc").value;
+        var pName = document.getElementById("pName").value;
+        var aKey = document.getElementById("API").value;
+
+        // Initialize the factory function
+        const meeting = new VideoSDKMeeting();
+
+        // Set apikey, meetingId and participant name
+        const apiKey = aKey; // generated from app.videosdk.live
+        const meetingId = meetingName;
+        const name = pName;
+
+        const config = {
+          name: name,
+          apiKey: apiKey,
+          meetingId: meetingId,
+
+          containerId: null,
+          redirectOnLeave: "https://www.videosdk.live/",
+
+          micEnabled: true,
+          webcamEnabled: true,
+          participantCanToggleSelfWebcam: true,
+          participantCanToggleSelfMic: true,
+
+          chatEnabled: true,
+          screenShareEnabled: true,
+          pollEnabled: true,
+          whiteboardEnabled: true,
+          raiseHandEnabled: true,
+
+          recordingEnabled: true,
+          recordingWebhookUrl: "https://www.videosdk.live/callback",
+
+          brandingEnabled: true,
+          brandLogoURL: "https://picsum.photos/200",
+          brandName: "JJ & SAL Demo Meeting",
+          poweredBy: false,
+
+          participantCanLeave: true, // if false, leave button won't be visible
+
+          // Live stream meeting to youtube
+          livestream: {
+            autoStart: false,
+            outputs: [
+              // {
+              //   url: "rtmp://x.rtmp.youtube.com/live2",
+              //   streamKey: "<STREAM KEY FROM YOUTUBE>",
+              // },
+            ],
+          },
+
+          permissions: {
+            askToJoin: false, // Ask joined participants for entry in meeting
+            toggleParticipantMic: true, // Can toggle other participant's mic
+            toggleParticipantWebcam: true, // Can toggle other participant's webcam
+            removeParticipant: true, // Remove other participant from meeting
+            endMeeting: true, // End meeting for all participant 
+            drawOnWhiteboard: true, // Can Draw on whiteboard
+            toggleWhiteboard: true, // Can toggle whiteboard
+            toggleRecording: true, // Can toggle recording
+          },
+
+          joinScreen: {
+            visible: true, // Show the join screen ?
+            title: meetingId, // Meeting title
+            meetingUrl: window.location.href, // Meeting joining url
+          },
+
+          pin: {
+            allowed: true, // participant can pin any participant in meeting
+            layout: "SPOTLIGHT", // meeting layout - GRID | SPOTLIGHT | SIDEBAR
+          },
+        };
+
+        meeting.init(config);
+      });
+
+      script.src =
+        "https://sdk.videosdk.live/rtc-js-prebuilt/0.1.21/rtc-js-prebuilt.js";
+      document.getElementsByTagName("head")[0].appendChild(script);
+    </script>
+  </body>
+</html>
